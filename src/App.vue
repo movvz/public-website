@@ -13,7 +13,9 @@
             width="60"
           ></v-img>
         </div> -->
-        <p class="app-logo primary--text">movvz</p>
+        <router-link :to="{name: 'Home'}">
+          <p class="app-logo primary--text">movvz</p>
+        </router-link>
         <v-spacer></v-spacer>
         <router-link
           v-for="(item, index) in pages"
@@ -36,8 +38,9 @@ export default {
   name: 'App',
   data () {
     return {
+      title: 'movvz',
       pages: [
-        { title: 'Home', routeName: 'Home' },
+        // { title: 'Home', routeName: 'Home' },
         { title: 'Services', routeName: 'Services' },
         { title: 'About', routeName: 'About' },
         { title: 'Team', routeName: 'Team' }
@@ -68,5 +71,9 @@ a {
   font-size: 20px;
   font-weight: 700;
   padding: 0 20px;
+}
+.title-main {
+    font-size: 40px;
+    font-weight: 700;
 }
 </style>

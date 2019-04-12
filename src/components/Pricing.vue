@@ -6,7 +6,7 @@
             class="pt-5"
         >
             <v-flex xs12>
-                <p class="pitch-main">
+                <p class="title-main">
                     Pricing
                 </p>
             </v-flex>
@@ -38,7 +38,7 @@
 
 <script>
 export default {
-    
+
 }
 </script>
 
@@ -55,10 +55,6 @@ export default {
 }
 .business-name {
     font-size: 100px;
-    font-weight: 700;
-}
-.pitch-main {
-    font-size: 40px;
     font-weight: 700;
 }
 .pitch-caption {

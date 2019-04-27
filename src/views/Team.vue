@@ -10,11 +10,15 @@
             Meet Our Team
         </p>
       </v-flex>
-      <v-flex xs12>
+      <v-flex xs12
+        v-for="(team, teamIndex) in teams"
+        v-bind:key="teamIndex"
+      >
         <v-container grid-list-sm fluid>
+          <p class="title-team secondaryDark--text">{{ team.name }}</p>
           <v-layout row wrap>
             <v-flex
-              v-for="(member, index) in team"
+              v-for="(member, index) in teamOf(team.type)"
               :key="index"
               xs4
               d-flex
@@ -39,7 +43,9 @@
                         justify-center
                         ma-0
                       >
-                        <div class="ma-5 item-title-wrapper" :style="titleStyle"><b class="member-name">{{ member.name }}</b></div>
+                        <div class="ma-5 item-title-wrapper" :style="titleStyle"><b class="member-name">
+                          {{ `${member.fname} ${member.lname}` }}
+                        </b></div>
                       </v-layout>
                     </div>
                   </v-expand-transition>
@@ -65,25 +71,35 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
+  created () {
+    this.getTeam()
+  },
   data () {
     return {
-      team: [
-        { name: 'Albara Almubiad', title: 'CEO', description: '', img: 'https://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg' },
-        { name: 'Vic Ong', title: 'CTO', description: '', img: 'https://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg' },
-        { name: 'Ryan Kanno', title: 'COO', description: '', img: 'https://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg' },
-        { name: 'Tyler Kekano', title: 'Software Engineer', description: '', img: 'https://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg' },
-        { name: 'Reza Ghorbani', title: 'CSO', description: '', img: 'https://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg' }
+      teams: [
+        { name: 'Core Team', type: 'core' },
+        { name: 'Advisor', type: 'advisor' }
       ]
     }
   },
   computed: {
+    ...mapGetters('users', {
+      teamOf: 'team'
+    }),
     titleStyle () {
       return {
         color: this.$vuetify.theme.primaryDark,
         backgroundColor: this.$vuetify.theme.primaryLight
       }
     }
+  },
+  methods: {
+    ...mapActions('users', {
+      getTeam: 'getTeam'
+    })
   }
 }
 </script>
@@ -95,5 +111,9 @@ export default {
 }
 .member-name {
   font-size: 20px;
+}
+.title-team {
+  font-size: 24px;
+  font-weight: 700;
 }
 </style>
